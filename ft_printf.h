@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 11:34:44 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 04:18:09 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 06:15:57 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <stdarg.h>
 # include <stdint.h>
+# include <wctype.h>
 
 typedef struct	s_stru
 {
