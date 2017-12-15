@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 19:43:09 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 03:08:46 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 11:07:10 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_stru	*ft_analyseformat3(t_stru *stru, const char *format)
 {
-	while(*format != 'd' && *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 's' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p')
+	while(*format != 'd' && *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 's' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p' && *format != 'S')
 	{
 		if ((*format < '1' || *format > '9') && *format != '.')
 			format++;
@@ -34,9 +34,9 @@ t_stru	*ft_analyseformat3(t_stru *stru, const char *format)
 }
 t_stru	*ft_analyseformat2(t_stru *stru, const char *format)
 {
-	while(*format != 'd' && *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 's' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p')  
+	while(*format != 'd' && *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 's' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p' && *format != 'S')  
 		format ++;
-	if (*format == 'U' || *format == 'O' || *format == 'D')
+	if (*format == 'U' || *format == 'O' || *format == 'D' || *format == 'S')
 		stru->conv = 1;
 	else if (*format == 'p')
 		stru->conv = 5;
@@ -57,7 +57,7 @@ t_stru	*ft_analyseformat2(t_stru *stru, const char *format)
 
 t_stru	*ft_analyseformat(t_stru *stru, const char *format)
 {
-	while(*format != 'd' && *format != 'i' && *format != 's' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p')
+	while(*format != 'd' && *format != 'i' && *format != 's' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p' && *format != 'S')
 	{
 		if (*format == '0' && !(*(format - 1) == '.' || (*(format - 1) >= '0' && *(format - 1) <= '9')))
 			stru->zero = 1;

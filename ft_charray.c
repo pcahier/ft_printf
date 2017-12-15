@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 18:37:18 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 03:17:08 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 11:07:44 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ int		ft_charray(const char *format, va_list *ap, int fd)
 	ft_analyseformat(&stru, format);
 	ft_analyseformat2(&stru, format);
 	ft_analyseformat3(&stru, format);
+	if (stru.conv == 0)
+		return (ft_printstring(&stru, str, fd));
 	return (ft_printstring(&stru, str, fd));
 }

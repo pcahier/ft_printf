@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 11:34:44 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 06:15:57 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 11:36:37 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int				ft_pointer(const char *format, va_list *ap, int fd);
 int				ft_charray(const char *format, va_list *ap, int fd);
 int				ft_int_uchar(const char *format, va_list *ap, int fd);
 int				ft_wrongconv(const char *format, int fd);
-int				ft_printchar(t_stru *stru, unsigned char c, int fd, int j);
+int				ft_printchar(t_stru *stru, unsigned char c, int fd);
+int				ft_printwchar(t_stru *stru, wint_t s, int fd);
 int				ft_printstring(t_stru *stru, char *str, int fd);
 size_t			ft_printdecnumlen(intmax_t nb);
 size_t			ft_printunsnumlen(uintmax_t nb, int base);

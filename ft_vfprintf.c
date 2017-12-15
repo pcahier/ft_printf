@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:28:43 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/12 15:49:12 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 10:57:24 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_vfprintf(int fd, const char *format, va_list *ap)
 	while (*format)
 	{
 		i = 0;
-		check = 0;
+		check = -2;
 		if (*format != '%')
 		{
 			ft_putchar(*format);
@@ -43,12 +43,14 @@ int		ft_vfprintf(int fd, const char *format, va_list *ap)
 			{
 				if (format[i] == g_print[a].operat)
 				{
-					ret = ret + g_print[a].ft(format + 1, ap, fd);
-					check = 1;
+					check = g_print[a].ft(format + 1, ap, fd);
+					ret = ret + check;
+					if (check == -1)
+						return (-1);
 				}
 				a++;
 			}
-			if (!check)
+			if (check == -2)
 				ret = ret + ft_wrongconv(format + 1, fd);
 		}
 		format = format + i + 1;
