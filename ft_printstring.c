@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printstring.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/10 20:40:47 by pcahier           #+#    #+#             */
+/*   Updated: 2017/12/15 03:18:38 by pcahier          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+
+int		ft_printstring(t_stru *stru, char *str, int fd)
+{
+	int		ret;
+	int		len;
+
+	ret = 0;
+	len = ft_strlen(str);
+	if (!stru->l_just)
+	{
+		while (stru->wid_min - len > ret && !stru->zero)
+			ret = ret + ft_putchar_fd(' ', fd);
+		while (stru->wid_min - len > ret && stru->zero)
+			ret = ret + ft_putchar_fd('0', fd);
+	}
+	if (stru->pre && len)
+	{
+		if ((size_t)stru->pre < ft_strlen(str))
+			ret = ret + ft_putnstr_fd(str, fd, stru->pre);
+		else
+			ret = ret + ft_putstr_fd(str, fd);
+	}
+	if (stru->l_just)
+		while (stru->wid_min > ret)
+			ret = ret + ft_putchar_fd(' ', fd);
+	return (ret);
+}
