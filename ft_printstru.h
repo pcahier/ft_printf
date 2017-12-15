@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 18:40:47 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 02:29:49 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 04:15:47 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_print			g_print[20] = {
 	{'G', ft_dbl_convmaj},
 	{'a', ft_dbl_hex},
 	{'A', ft_dbl_hexmaj},
-	{'c', ft_int_uchar},
-	{'C', ft_intucharmaj},*/
+*/	{'c', ft_int_uchar},
+	{'C', ft_int_uchar},
 	{'s', ft_charray},
 /*	{'S', ft_charraymaj},
 */	{'p', ft_pointer},

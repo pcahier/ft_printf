@@ -6,13 +6,13 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 20:31:19 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/10 20:37:13 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 04:17:53 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_printchar(t_stru *stru, char c, int fd, int j)
+int		ft_printchar(t_stru *stru, unsigned char c, int fd, int j)
 {
 	int		ret;
 

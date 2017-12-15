@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 11:34:44 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 02:53:49 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 04:18:09 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ int				ft_uns_hexmaj(const char *format, va_list *ap, int fd);
 int				ft_uns_oct(const char *format, va_list *ap, int fd);
 int				ft_pointer(const char *format, va_list *ap, int fd);
 int				ft_charray(const char *format, va_list *ap, int fd);
+int				ft_int_uchar(const char *format, va_list *ap, int fd);
 int				ft_wrongconv(const char *format, int fd);
-int				ft_printchar(t_stru *stru, char c, int fd, int j);
+int				ft_printchar(t_stru *stru, unsigned char c, int fd, int j);
 int				ft_printstring(t_stru *stru, char *str, int fd);
 size_t			ft_printdecnumlen(intmax_t nb);
 size_t			ft_printunsnumlen(uintmax_t nb, int base);
