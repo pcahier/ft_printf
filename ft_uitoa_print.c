@@ -6,13 +6,14 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 01:56:58 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 03:07:51 by pcahier          ###   ########.fr       */
+/*   Updated: 2018/01/06 19:46:55 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char		*ft_itoa_print_form(char *str, size_t len, t_stru *stru, int base)
+static char		*ft_itoa_print_form(char *str, size_t len,
+					t_stru *stru, int base)
 {
 	char			*strr;
 	unsigned int	i;
@@ -20,7 +21,7 @@ static char		*ft_itoa_print_form(char *str, size_t len, t_stru *stru, int base)
 
 	i = 0;
 	j = 0;
-	if (!(strr = (char*)ft_memalloc(sizeof(char) * (len + stru->wid_min + 1))))
+	if (!(strr = (char*)ft_memalloc(sizeof(char) * (len + stru->wid_min + 2))))
 		return (NULL);
 	while ((!stru->zero || stru->pre != -1) && stru->wid_min > 0)
 	{
@@ -45,7 +46,8 @@ static char		*ft_itoa_print_form(char *str, size_t len, t_stru *stru, int base)
 	return (strr);
 }
 
-static char		*ft_itoa_print_forml(char *str, size_t len, t_stru *stru, int base)
+static char		*ft_itoa_print_forml(char *str, size_t len,
+					t_stru *stru, int base)
 {
 	char			*strr;
 	unsigned int	i;
@@ -53,7 +55,7 @@ static char		*ft_itoa_print_forml(char *str, size_t len, t_stru *stru, int base)
 
 	i = 0;
 	j = 0;
-	if (!(strr = (char*)ft_memalloc(sizeof(char) * (len + stru->wid_min + 1))))
+	if (!(strr = (char*)ft_memalloc(sizeof(char) * (len + stru->wid_min + 2))))
 		return (NULL);
 	if ((stru->pound == 1 && str[0] != '0' && (base == 8 || (base == 16 && *str))) || stru->conv == 5)
 		strr[i++] = '0';
@@ -71,6 +73,7 @@ static char		*ft_itoa_print_forml(char *str, size_t len, t_stru *stru, int base)
 		strr[i++] = ' ';
 		stru->wid_min--;
 	}
+	strr[i] = '\0';
 	free(str);
 	return (strr);
 }
@@ -81,7 +84,7 @@ static char		*ft_itoarev(char *str, unsigned int len, t_stru *stru, int base)
 	char		*strr;
 
 	i = 0;
-	if (!(strr = (char*)ft_memalloc(sizeof(char) * (len + 1))))
+	if (!(strr = (char*)ft_memalloc(sizeof(char) * (len + 2))))
 		return (NULL);
 	while (len - i > 0)
 	{
@@ -105,7 +108,8 @@ static char		*ft_itoarev(char *str, unsigned int len, t_stru *stru, int base)
 		return (ft_itoa_print_form(strr, i, stru, base));
 }
 
-static char		*ft_itoafill(char *str, uintmax_t n, unsigned int i, t_stru *stru, int base)
+static char		*ft_itoafill(char *str, uintmax_t n,
+					unsigned int i, t_stru *stru, int base)
 {
 	while (n > 0)
 	{
@@ -113,7 +117,7 @@ static char		*ft_itoafill(char *str, uintmax_t n, unsigned int i, t_stru *stru, 
 		n = n / base;
 		i++;
 	}
-	while (stru->pre > stru->len)
+	while (stru->pre > stru->len - (stru->conv == 5 ? 2 : 0))
 	{
 		str[i++] = '0';
 		stru->pre--;
@@ -128,7 +132,7 @@ char			*ft_uitoa_print(uintmax_t n, t_stru *stru, int base)
 	unsigned int	neg;
 
 	neg = 0;
-	if (!(str = (char*)ft_memalloc(sizeof(char) * (stru->len + stru->pre + 1))))
+	if (!(str = (char*)ft_memalloc(sizeof(char) * (stru->len + stru->pre + 2))))
 		return (NULL);
 	i = 0;
 	if (n == 0 && stru->pre)

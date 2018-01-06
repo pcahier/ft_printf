@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 18:16:49 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 02:15:51 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 19:35:53 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static char		*ft_formatintdec(uintmax_t s, t_stru *stru)
 	return (ft_uitoa_print(s, stru, 8));
 }
 
-int			ft_uns_oct(const char *format, va_list *ap, int fd)
+int				ft_uns_oct(const char *format, va_list *ap, int fd)
 {
 	t_stru		stru;
 	uintmax_t	s;
 	char		*str;
 
-	ft_genbasestru(&stru, -1, 0);
+	ft_genbasestru(&stru, -1, 0, format);
 	ft_analyseformat(&stru, format);
 	ft_analyseformat2(&stru, format);
 	ft_analyseformat3(&stru, format);

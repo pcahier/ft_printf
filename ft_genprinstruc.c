@@ -6,15 +6,24 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 19:43:09 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 11:07:10 by pcahier          ###   ########.fr       */
+/*   Updated: 2018/01/05 17:49:59 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_stru	*ft_analyseformat3(t_stru *stru, const char *format)
+static int		ft_isntconvflag(const char c)
 {
-	while(*format != 'd' && *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 's' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p' && *format != 'S')
+	if (c != 'd' && c != 'i' && c != 'u' && c != 'x' && c != 'X' && c != 'o' 
+			&& c != 's' && c != 'c' && c != 'U' && c != 'O' && c != 'D' 
+				&& c != 'p' && c != 'S' && c != 'C')
+		return (1);
+	return (0);
+}
+
+t_stru			*ft_analyseformat3(t_stru *stru, const char *format)
+{
+	while (ft_isntconvflag(*format))
 	{
 		if ((*format < '1' || *format > '9') && *format != '.')
 			format++;
@@ -32,11 +41,12 @@ t_stru	*ft_analyseformat3(t_stru *stru, const char *format)
 	}
 	return (stru);
 }
-t_stru	*ft_analyseformat2(t_stru *stru, const char *format)
+
+t_stru			*ft_analyseformat2(t_stru *stru, const char *format)
 {
-	while(*format != 'd' && *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 's' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p' && *format != 'S')  
-		format ++;
-	if (*format == 'U' || *format == 'O' || *format == 'D' || *format == 'S')
+	while (ft_isntconvflag(*format))
+		format++;
+	if (*format == 'U' || *format == 'O' || *format == 'D' || *format == 'S' || *format == 'C')
 		stru->conv = 1;
 	else if (*format == 'p')
 		stru->conv = 5;
@@ -44,7 +54,7 @@ t_stru	*ft_analyseformat2(t_stru *stru, const char *format)
 		stru->conv = 2;
 	else if (format[-1] == 'l')
 		stru->conv = 1;
-	else if (format[-1] == 'h' && format [-2] == 'h')
+	else if (format[-1] == 'h' && format[-2] == 'h')
 		stru->conv = -2;
 	else if (format[-1] == 'h')
 		stru->conv = -1;
@@ -55,9 +65,9 @@ t_stru	*ft_analyseformat2(t_stru *stru, const char *format)
 	return (stru);
 }
 
-t_stru	*ft_analyseformat(t_stru *stru, const char *format)
+t_stru			*ft_analyseformat(t_stru *stru, const char *format)
 {
-	while(*format != 'd' && *format != 'i' && *format != 's' && *format != 'u' && *format != 'x' && *format != 'X' && *format != 'o' && *format != 'c' && *format != 'U' && *format != 'O' && *format != 'D' && *format != 'p' && *format != 'S')
+	while (ft_isntconvflag(*format))
 	{
 		if (*format == '0' && !(*(format - 1) == '.' || (*(format - 1) >= '0' && *(format - 1) <= '9')))
 			stru->zero = 1;
@@ -76,15 +86,17 @@ t_stru	*ft_analyseformat(t_stru *stru, const char *format)
 	return (stru);
 }
 
-t_stru	*ft_genbasestru(t_stru *stru, size_t pre, size_t wid_min)
+t_stru			*ft_genbasestru(t_stru *stru, size_t pre, size_t wid_min, 
+					const char *format)
 {
 	stru->pre = pre;
 	stru->wid_min = wid_min;
 	stru->l_just = 0;
-	stru->sign = 0; // 1 pour space et 2 pour +
+	stru->sign = 0;
 	stru->zero = 0;
 	stru->pound = 0;
-	stru->conv = 0;  //pour l, et autres len_modifiers.
+	stru->conv = 0;
 	stru->len = 0;
+	stru->format = format;
 	return (stru);
 }

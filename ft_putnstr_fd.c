@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 00:11:50 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 00:13:03 by pcahier          ###   ########.fr       */
+/*   Updated: 2017/12/15 19:12:35 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		ft_putnstr_fd(char const *s, int fd, int n)
 		write(fd, "(null)", 6);
 	else
 	{
-			write(fd, s, n);
-			return (n);
+		write(fd, s, n);
+		return (n);
 	}
 	return (0);
 }

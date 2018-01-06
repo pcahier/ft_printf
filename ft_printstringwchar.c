@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_printstringwchar.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 20:14:04 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 19:12:58 by pcahier          ###   ########.fr       */
+/*   Created: 2017/12/15 15:12:02 by pcahier           #+#    #+#             */
+/*   Updated: 2017/12/19 16:47:31 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int		ft_putstr(char const *s)
+int		ft_printstringwchar(t_stru *stru, unsigned int *str, int fd)
 {
-	if (s == NULL)
-		write(1, "(null)", 6);
-	else
+	int		ret;
+	int		check;
+
+	ret = 0;
+	check = 0;
+	while (*str != '\0')
 	{
-		write(1, s, ft_strlen(s));
-		return (ft_strlen(s));
+		check = ft_formatwchar(*str, stru, fd);
+		str++;
+		ret += check;
 	}
-	return (0);
+	return (ret);
 }
