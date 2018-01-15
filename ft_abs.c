@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printunsnumlen.c                                :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/12 16:21:08 by pcahier           #+#    #+#             */
-/*   Updated: 2018/01/06 22:07:29 by pcahier          ###   ########.fr       */
+/*   Created: 2017/11/14 13:32:37 by pcahier           #+#    #+#             */
+/*   Updated: 2017/11/14 13:33:21 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-size_t	ft_printunsnumlen(uintmax_t nb, int base)
+int		ft_abs(int x)
 {
-	size_t	len;
-
-	len = 0;
-	if (nb == 0)
-		return (1);
-	while (nb != 0)
-	{
-		nb = nb / base;
-		len++;
-	}
-	return (len);
+	if (x < 0)
+		x = -x;
+	return (x);
 }

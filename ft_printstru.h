@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 18:40:47 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 11:08:13 by pcahier          ###   ########.fr       */
+/*   Updated: 2018/01/06 21:11:18 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_print			g_print[20] = {
 	{'U', ft_uns_dec},
 	{'x', ft_uns_hex},
 	{'X', ft_uns_hexmaj},
+	{'b', ft_uns_bin},
 /*	{'f', ft_dbl_dec},
 	{'F', ft_dbl_decmaj},
 	{'e', ft_dbl_exp},

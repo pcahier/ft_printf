@@ -6,14 +6,14 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 01:56:58 by pcahier           #+#    #+#             */
-/*   Updated: 2018/01/06 19:46:55 by pcahier          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:53:38 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static char		*ft_itoa_print_form(char *str, size_t len,
-					t_stru *stru, int base)
+					t_stru *stru)
 {
 	char			*strr;
 	unsigned int	i;
@@ -28,15 +28,6 @@ static char		*ft_itoa_print_form(char *str, size_t len,
 		strr[i++] = ' ';
 		stru->wid_min--;
 	}
-	if ((stru->pound == 1 && str[0] != '0' && (base == 8 || (base == 16 && *str))) || stru->conv == 5)
-		strr[i++] = '0';
-	if ((stru->pound == 1 && base == 16 && str[0] != '0' && *str) || stru->conv == 5)
-		strr[i++] = 'x';
-	while (stru->zero && stru->wid_min)
-	{
-		strr[i++] = '0';
-		stru->wid_min--;
-	}
 	while (str[j] != '\0')
 	{
 		strr[i++] = str[j++];
@@ -47,7 +38,7 @@ static char		*ft_itoa_print_form(char *str, size_t len,
 }
 
 static char		*ft_itoa_print_forml(char *str, size_t len,
-					t_stru *stru, int base)
+					t_stru *stru)
 {
 	char			*strr;
 	unsigned int	i;
@@ -57,15 +48,6 @@ static char		*ft_itoa_print_forml(char *str, size_t len,
 	j = 0;
 	if (!(strr = (char*)ft_memalloc(sizeof(char) * (len + stru->wid_min + 2))))
 		return (NULL);
-	if ((stru->pound == 1 && str[0] != '0' && (base == 8 || (base == 16 && *str))) || stru->conv == 5)
-		strr[i++] = '0';
-	if ((stru->pound == 1 && base == 16 && str[0] != '0' && *str) || stru->conv == 5)
-		strr[i++] = 'x';
-	while (stru->zero && stru->wid_min)
-	{
-		strr[i++] = '0';
-		stru->wid_min--;
-	}
 	while (str[j] != '\0')
 		strr[i++] = str[j++];
 	while (!stru->zero && stru->wid_min)
@@ -78,7 +60,7 @@ static char		*ft_itoa_print_forml(char *str, size_t len,
 	return (strr);
 }
 
-static char		*ft_itoarev(char *str, unsigned int len, t_stru *stru, int base)
+static char		*ft_itoarev(char *str, unsigned int len, t_stru *stru)
 {
 	size_t		i;
 	char		*strr;
@@ -94,35 +76,45 @@ static char		*ft_itoarev(char *str, unsigned int len, t_stru *stru, int base)
 	strr[i] = '\0';
 	free(str);
 	stru->len = ft_strlen(strr);
-	if (base == 16 && stru->pound == 1)
-		stru->len += 2;
-	if (base == 8 && stru->pound == 1)
-		stru->len++;
 	if (stru->len < stru->wid_min)
 		stru->wid_min -= stru->len;
 	else
 		stru->wid_min = 0;
 	if (stru->l_just)
-		return (ft_itoa_print_forml(strr, i, stru, base));
+		return (ft_itoa_print_forml(strr, i, stru));
 	else
-		return (ft_itoa_print_form(strr, i, stru, base));
+		return (ft_itoa_print_form(strr, i, stru));
 }
 
 static char		*ft_itoafill(char *str, uintmax_t n,
 					unsigned int i, t_stru *stru, int base)
 {
+	int	check;
+
+	check = n ? 1 : 0;
 	while (n > 0)
 	{
 		str[i] = (n % base) + ((n % base) > 9 ? 87 : 48);
 		n = n / base;
 		i++;
 	}
-	while (stru->pre > stru->len - (stru->conv == 5 ? 2 : 0))
+	while (stru->pre > (stru->len - (stru->conv == 5 ? 2 : 0)))
 	{
 		str[i++] = '0';
 		stru->pre--;
 	}
-	return (ft_itoarev(str, i, stru, base));
+	while (stru->zero && (stru->wid_min > i) && !stru->l_just)
+		str[i++] = '0';
+	if ((stru->pound == 1 && check) || stru->conv == 5)
+	{
+		if (base == 16)
+			str[i++] = 'x';
+		else if (base == 2)
+			str[i++] = 'b';
+	}
+	if ((stru->pound == 1 && (base == 8 || (check && (base == 16 || base == 2)))) || stru->conv == 5)
+		str[i++] = '0';
+	return (ft_itoarev(str, i, stru));
 }
 
 char			*ft_uitoa_print(uintmax_t n, t_stru *stru, int base)
@@ -132,13 +124,17 @@ char			*ft_uitoa_print(uintmax_t n, t_stru *stru, int base)
 	unsigned int	neg;
 
 	neg = 0;
-	if (!(str = (char*)ft_memalloc(sizeof(char) * (stru->len + stru->pre + 2))))
+	if (!(str = (char*)ft_memalloc(sizeof(char) * (stru->len + stru->pre + stru->wid_min + 4))))
 		return (NULL);
 	i = 0;
-	if (n == 0 && stru->pre)
+	if (n == 0 && stru->pre && !(stru->pre == -1 && base == 8 && stru->pound))
+		str[i++] = '0';
+	if ((stru->zero || base == 8) && stru->pound)
 	{
-		str[0] = '0';
-		i++;
+		if (base == 16 || base == 2)
+			stru->wid_min -= 2;
+		if (base == 8)
+			stru->pre -= 1;
 	}
 	return (ft_itoafill(str, n, i, stru, base));
 }

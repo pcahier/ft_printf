@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uns_hex.c                                       :+:      :+:    :+:   */
+/*   ft_uns_bin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/12 17:46:21 by pcahier           #+#    #+#             */
-/*   Updated: 2018/01/06 22:24:02 by pcahier          ###   ########.fr       */
+/*   Created: 2018/01/06 21:13:51 by pcahier           #+#    #+#             */
+/*   Updated: 2018/01/06 22:24:18 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static char		*ft_formatintdec(uintmax_t s, t_stru *stru)
 {
-	stru->len = ft_printunsnumlen(s, 16);
-	return (ft_uitoa_print(s, stru, 16));
+	stru->len = ft_printunsnumlen(s, 2);
+	return (ft_uitoa_print(s, stru, 2));
 }
 
-int				ft_uns_hex(const char *format, va_list *ap, int fd)
+int				ft_uns_bin(const char *format, va_list *ap, int fd)
 {
 	t_stru		stru;
 	uintmax_t	s;

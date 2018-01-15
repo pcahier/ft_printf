@@ -6,24 +6,24 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 19:43:09 by pcahier           #+#    #+#             */
-/*   Updated: 2018/01/05 17:49:59 by pcahier          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:01:45 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		ft_isntconvflag(const char c)
+static int		ft_isconvflag(const char c)
 {
-	if (c != 'd' && c != 'i' && c != 'u' && c != 'x' && c != 'X' && c != 'o' 
-			&& c != 's' && c != 'c' && c != 'U' && c != 'O' && c != 'D' 
-				&& c != 'p' && c != 'S' && c != 'C')
+	if (c == '\'' || c == '-' || c == '+' || c == ' ' || c == '#' || c == 'h' 
+			|| c == 'l' || c == 'j' || c == 'z' || c == 't' || c == 'L' 
+				|| c == '.' || c == '*' || ft_isdigit(c))
 		return (1);
 	return (0);
 }
 
 t_stru			*ft_analyseformat3(t_stru *stru, const char *format)
 {
-	while (ft_isntconvflag(*format))
+	while (ft_isconvflag(*format))
 	{
 		if ((*format < '1' || *format > '9') && *format != '.')
 			format++;
@@ -36,6 +36,7 @@ t_stru			*ft_analyseformat3(t_stru *stru, const char *format)
 		if (*format == '.')
 		{
 			stru->pre = ft_atoi(format + 1);
+			stru->zero = 0;
 			return (stru);
 		}
 	}
@@ -44,7 +45,7 @@ t_stru			*ft_analyseformat3(t_stru *stru, const char *format)
 
 t_stru			*ft_analyseformat2(t_stru *stru, const char *format)
 {
-	while (ft_isntconvflag(*format))
+	while (ft_isconvflag(*format))
 		format++;
 	if (*format == 'U' || *format == 'O' || *format == 'D' || *format == 'S' || *format == 'C')
 		stru->conv = 1;
@@ -67,7 +68,7 @@ t_stru			*ft_analyseformat2(t_stru *stru, const char *format)
 
 t_stru			*ft_analyseformat(t_stru *stru, const char *format)
 {
-	while (ft_isntconvflag(*format))
+	while (ft_isconvflag(*format))
 	{
 		if (*format == '0' && !(*(format - 1) == '.' || (*(format - 1) >= '0' && *(format - 1) <= '9')))
 			stru->zero = 1;

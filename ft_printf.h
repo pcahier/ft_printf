@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 11:34:44 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/19 16:48:09 by pcahier          ###   ########.fr       */
+/*   Updated: 2018/01/06 21:16:26 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int				ft_uns_dec(const char *format, va_list *ap, int fd);
 int				ft_uns_hex(const char *format, va_list *ap, int fd);
 int				ft_uns_hexmaj(const char *format, va_list *ap, int fd);
 int				ft_uns_oct(const char *format, va_list *ap, int fd);
+int				ft_uns_bin(const char *format, va_list *ap, int fd);
 int				ft_pointer(const char *format, va_list *ap, int fd);
 int				ft_charray(const char *format, va_list *ap, int fd);
 int				ft_int_uchar(const char *format, va_list *ap, int fd);

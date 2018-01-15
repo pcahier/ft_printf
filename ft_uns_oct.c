@@ -6,7 +6,7 @@
 /*   By: pcahier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 18:16:49 by pcahier           #+#    #+#             */
-/*   Updated: 2017/12/15 19:35:53 by pcahier          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:36:36 by pcahier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static char		*ft_formatintdec(uintmax_t s, t_stru *stru)
 {
 	stru->len = ft_printunsnumlen(s, 8);
-	if (stru->pound == 1)
-		stru->len++;
 	return (ft_uitoa_print(s, stru, 8));
 }
 
